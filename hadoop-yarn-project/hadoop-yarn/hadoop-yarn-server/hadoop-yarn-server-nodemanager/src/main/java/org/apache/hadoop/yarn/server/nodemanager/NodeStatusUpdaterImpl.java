@@ -790,7 +790,6 @@ public class NodeStatusUpdaterImpl extends AbstractService implements
             context.getNMStateStore().removeContainer(cid);
           } catch (IOException e) {
             LOG.error("Unable to remove container " + cid + " in store", e);
-            }
           }
         }
       }
