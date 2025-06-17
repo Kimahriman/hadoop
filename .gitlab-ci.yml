@@ -31,5 +31,6 @@ build:
     - ./start-build-env.sh ubuntu_20 mvn package -Pdist,native -DskipTests -Dtar
   artifacts:
     paths:
+      - apk add --no-cache bash
       - hadoop-dist/target/hadoop-3.4.1.tar.gz
     expire_in: 1 day
