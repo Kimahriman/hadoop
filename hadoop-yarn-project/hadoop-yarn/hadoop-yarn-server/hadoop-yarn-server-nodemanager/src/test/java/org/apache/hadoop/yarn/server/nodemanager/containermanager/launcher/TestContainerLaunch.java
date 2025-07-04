@@ -1460,8 +1460,7 @@ public class TestContainerLaunch extends BaseContainerManagerTest {
     internalKillTest(false);
   }
 
-  @Test
-  @Timeout(value = 30)
+  @Test (timeout = 30)
   public void testNoBashParentProcess() throws Exception {
     assumeNotWindows();
     containerManager.start();
@@ -1503,7 +1502,7 @@ public class TestContainerLaunch extends BaseContainerManagerTest {
       pid = containerManager.getContext().getContainerExecutor().getProcessId(cId);
       LOG.info("Waiting for process start-file to be created");
     }
-    assertNotNull(pid);
+    Assert.assertNotNull(pid);
 
     Process proc = Runtime.getRuntime().exec(new String[] {"ps", "-o", "command=", pid});
     assertEquals(proc.waitFor(), 0);

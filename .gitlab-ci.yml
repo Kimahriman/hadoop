@@ -26,10 +26,27 @@ build:
   stage: build
   tags:
     - docker
-  image: docker:28
+  image: ubuntu:focal
+  variables:
+    DEBIAN_FRONTEND: noninteractive
+    JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
+    MAVEN_HOME: /usr
+    MAVEN_OPTS: -Xms256m -Xmx3072m
+    PROTOBUF_HOME: /opt/protobuf
   script:
-    - apk add --no-cache bash
-    - ./start-build-env.sh ubuntu_20 mvn package -Pdist,native -DskipTests -Dtar
+    - apt-get update
+    - cd dev-support/docker
+    - chmod a+x pkg-resolver/*.sh pkg-resolver/*.py
+    - chmod a+r pkg-resolver/*.json
+    - apt-get install -y --no-install-recommends python3
+    - apt-get install -y --no-install-recommends $(pkg-resolver/resolve.py ubuntu:focal) 
+    - pkg-resolver/install-common-pkgs.sh
+    - pkg-resolver/install-spotbugs.sh ubuntu:focal
+    - pkg-resolver/install-boost.sh ubuntu:focal
+    - pkg-resolver/install-protobuf.sh ubuntu:focal
+    - export PATH="${PATH}:/opt/protobuf/bin"
+    - cd ../..
+    - mvn package -Pdist,native -DskipTests -Dtar
   artifacts:
     paths:
       - hadoop-dist/target/hadoop-3.4.1.tar.gz
