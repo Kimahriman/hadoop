@@ -49,5 +49,5 @@ build:
     - mvn package -Pdist,native -DskipTests -Dtar
   artifacts:
     paths:
-      - hadoop-dist/target/hadoop-3.4.1.tar.gz
+      - hadoop-dist/target/hadoop-*.tar.gz
     expire_in: 1 day
