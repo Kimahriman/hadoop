@@ -19,9 +19,6 @@
 stages:
   - build
 
-variables:
-  HADOOP_VERSION: "3.4.1"
-
 build:
   stage: build
   tags:
@@ -46,7 +43,7 @@ build:
     - pkg-resolver/install-protobuf.sh ubuntu:focal
     - export PATH="${PATH}:/opt/protobuf/bin"
     - cd ../..
-    - mvn package -Pdist,native -DskipTests -Dtar
+    - mvn package -Pdist,native,yarn-ui -DskipTests -Dtar
   artifacts:
     paths:
       - hadoop-dist/target/hadoop-*.tar.gz
