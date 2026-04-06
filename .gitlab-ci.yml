@@ -30,13 +30,20 @@ build:
     MAVEN_HOME: /usr
     MAVEN_OPTS: -Xms256m -Xmx3072m
     PROTOBUF_HOME: /opt/protobuf
+    PACKAGES: >
+      ant apt-utils automake bats build-essential bzip2 libbz2-dev clang cmake curl
+      libcurl4-openssl-dev doxygen fuse libfuse-dev gcc g++ git gnupg-agent hugo
+      libbcprov-java libtool libssl-dev libprotobuf-dev libprotoc-dev libsasl2-dev
+      libsnappy-dev libzstd-dev zlib1g-dev locales libtirpc-dev make
+      openjdk-17-jdk pinentry-curses pkg-config python3
+      python3-pip python3-pkg-resources python3-setuptools python3-wheel rsync
+      shellcheck software-properties-common sudo valgrind yasm
   script:
     - apt-get update
     - cd dev-support/docker
     - chmod a+x pkg-resolver/*.sh pkg-resolver/*.py
     - chmod a+r pkg-resolver/*.json
-    - apt-get install -y --no-install-recommends python3
-    - apt-get install -y --no-install-recommends $(pkg-resolver/resolve.py ubuntu:noble) 
+    - apt-get install -y --no-install-recommends $PACKAGES
     - pkg-resolver/install-maven.sh ubuntu:noble
     - pkg-resolver/install-spotbugs.sh ubuntu:noble
     - pkg-resolver/install-boost.sh ubuntu:noble
