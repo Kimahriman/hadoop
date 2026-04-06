@@ -51,7 +51,7 @@ build:
     - pkg-resolver/install-intel-isa-l.sh ubuntu:noble
     - export PATH="${PATH}:/opt/protobuf/bin"
     - cd ../..
-    - ./mvnw package -Pdist,native,yarn-ui -DskipTests -Dtar -Dhadoop-aws-package
+    - ./mvnw package -Pdist,native,yarn-ui -DskipTests -Dtar -Dhadoop-aws-package -q
   artifacts:
     paths:
       - hadoop-dist/target/hadoop-*.tar.gz
